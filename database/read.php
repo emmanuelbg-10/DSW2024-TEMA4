@@ -12,6 +12,9 @@ require_once 'connection.php';
       border:  1px solid black;
       padding:  4px 10px;
     }
+    /* table{
+      margin: auto;
+    } */
   </style>
 </head>
 <body>

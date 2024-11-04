@@ -9,7 +9,7 @@ if(!empty($_GET['id']) && !empty($_POST['name']) && !empty($_POST['price'])){
 
   $updateSQL = "UPDATE products SET name = '$name', price = $price WHERE id = $id";
   $link->query($updateSQL);
-  echo "Se ha actualziado con exito el producto $name con el precio $price con el id: $id";
+  echo "Se ha actualizado con exito el producto $name con el precio $price con el id: $id";
 }
 ?>
 <p>
