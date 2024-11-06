@@ -1,5 +1,10 @@
 <?php
-require_once 'connection.php'; //conexion de mysqli
+require 'connectionPDO.php';
+$min = $_GET['min'];
+$stmt = $link->prepare('SELECT * FROM products WHERE price > :min');
+$stmt->bindParam(":min", $min, PDO::PARAM_INT);
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_OBJ)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,22 +12,9 @@ require_once 'connection.php'; //conexion de mysqli
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>
-    th, td {
-      border:  1px solid black;
-      padding:  4px 10px;
-    }
-    /* table{
-      margin: auto;
-    } */
-  </style>
 </head>
 <body>
-  <h1>Tabla productos</h1>
-  <p>
-    <a href="create.html">Crear nuevo producto</a>
-  </p>
-  <table>
+<table>
     <thead>
       <tr>
         <th>id</th>
@@ -33,8 +25,7 @@ require_once 'connection.php'; //conexion de mysqli
     </thead>
     <tbody>
       <?php
-        $results = $link->query('SELECT * FROM products ORDER BY price DESC');
-        while($product = $results->fetch_object()){
+      foreach ($result as $product) {
         echo "<tr>";
         printf('<td>%d</td>', $product->id);
         printf('<td>%s</td>', $product->name);
@@ -42,7 +33,10 @@ require_once 'connection.php'; //conexion de mysqli
         printf('<td><a href="delete.php?id=%d">eliminar</a></td>', $product->id);
         printf('<td><a href="edit.php?id=%d">editar</a></td>', $product->id);
         echo "</tr>";
-        }
+      }
+
+
+        
       ?>
     </tbody>
   </table>
