@@ -23,6 +23,10 @@ if(isset($_GET['username']) && isset($_GET['password'])) {
   $stmt->close();
   $link->close();
 
+  //Version insegura
+  // Se puede hacer inyeccion SQL poniendo en el input de username:
+  // ' OR '1'='1
+  //NO USAR. MEJOR CONSULTAS PREPARADAS
   // $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
   // echo "<pre>$sql</pre>";
   // $results = $link->query($sql);
